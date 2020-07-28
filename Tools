@@ -1,0 +1,115 @@
+package com.softeem.clound.ToolsAndUI;
+
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
+import java.io.PrintWriter;
+/**
+ * 工具类
+ * @author 14252
+ */
+public class Tools {
+	/**
+	 * * 将套接字输出流包装成打印流并且打印信息
+	 * @param os
+	 * @param msg
+	 * @throws IOException
+	 */
+	public static void Println(OutputStream os, String msg) throws IOException {
+
+	}
+
+	public static String getMsg(InputStream in) throws IOException {
+		InputStreamReader isr = new InputStreamReader(in);
+		BufferedReader br = new BufferedReader(isr);
+		String s1 = null;
+		s1 = br.readLine();
+		return s1;
+	}
+	/**
+	 * 简化输出语句
+	 * 
+	 * @param s
+	 */
+	public static void tips(String s) {
+		System.out.println(s);
+	}
+
+	/**
+	 * 传输（发送）文件
+	 * @param os
+	 * @param file
+	 * @throws IOException
+	 */
+	public static void transFile(OutputStream os, File file) throws IOException {
+		BufferedOutputStream fos = new BufferedOutputStream(os);
+		byte b[] = new byte[1024];
+		FileInputStream fis = new FileInputStream(file);
+		int len = 0;
+		while ((len = fis.read(b)) != -1) {
+			fos.write(b, 0, len);
+		}
+		fos.flush();
+
+	}
+
+	/**
+	 * 发送消息
+	 * @param os
+	 * @param msg
+	 */
+	public static void sendMsg(OutputStream os, String msg) {
+		PrintWriter pw = new PrintWriter(os);
+		pw.println(msg);
+		pw.flush();
+	}
+  /**
+   * 接收文件
+   * @param in
+   * @param file
+   * @throws IOException
+   */
+	public static void getFile(InputStream in, File file) throws IOException {
+		BufferedInputStream bu = new BufferedInputStream(in);
+		int len = 0;
+		byte b[] = new byte[1024];
+		// System.out.println("下载完成！");
+		FileOutputStream fos = new FileOutputStream(file);
+		while ((len = bu.read(b)) != -1) {
+			fos.write(b, 0, len);
+		}
+		fos.flush();
+	}
+	/**
+	 * 定义泛型方法传输序列化对象
+	 * @param t
+	 * @param os
+	 * @throws IOException
+	 */
+	public static  <T>void  transObject(T t,OutputStream os) throws IOException{
+		ObjectOutputStream oos=new ObjectOutputStream(os);
+	    oos.writeObject(t);
+	}
+	/**
+	 * 定义泛型方法反序列化序列化对象
+	 * @param in
+	 * @return
+	 * @throws ClassNotFoundException
+	 * @throws IOException
+	 */
+	public static Object getObject(InputStream in) throws ClassNotFoundException, IOException{
+		ObjectInputStream ois = new ObjectInputStream(in);
+		Object o= ois.readObject();
+		return  o;
+	}
+	
+}
