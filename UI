@@ -1,0 +1,85 @@
+package com.softeem.clound.ToolsAndUI;
+
+import java.awt.Color;
+import java.awt.Container;
+import java.awt.Font;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+
+/**
+ * JFrame界面
+ * 
+ * @author 14252
+ *
+ */
+public class MyJFrame extends JFrame {
+
+	private static final long serialVersionUID = -82252562835060372L;
+	// 确认按钮
+	public static JButton jb1 = new JButton("确认");
+	public static JButton jb2 = new JButton("确认");
+	public static JButton jbDown = new JButton("下载");
+	public static JButton jbUp = new JButton("上传");
+	// 文本框
+	public static JTextArea jt2 = new JTextArea();
+	public static JTextArea jt = new JTextArea();
+	public static JTextArea jt1 = new JTextArea();
+	public static JScrollPane js = new JScrollPane();
+	// 标签
+	public static JLabel j1 = new JLabel("输入您要下载的文件名");
+	public static JLabel j2 = new JLabel("输入上传文件路径");
+
+	/**
+	 * 显示窗口
+	 */
+	public static void showJFrame() {
+		JFrame jf = new JFrame();
+		/** 设置窗口 */
+		jf.setTitle("云端文件共享mini版");
+		jf.setSize(520, 700);
+		jf.setLayout(null);
+		jf.setVisible(true);
+		jf.setResizable(false);
+		// 设置容器
+		Container c = jf.getContentPane();
+		/** 设置滚动条以及文本框 */
+		js.setBounds(50, 50, 400, 200);
+		c.add(js);
+		jt.setFont(new Font("", 20, 16));
+		jt.setBounds(50, 50, 400, 200);
+		js.setViewportView(jt);
+		c.add(jt);
+		/** 设置上传下载按钮 */
+		jbDown.setBounds(50, 280, 100, 40);
+		jbUp.setBounds(350, 280, 100, 40);
+		c.add(jbUp);
+		c.add(jbDown);
+		/** 设置按钮1以及文本框1以及标签1 */
+		jb1.setBounds(350, 350, 100, 40);
+		c.add(jb1);
+		j1.setBounds(50, 360, 300, 100);
+		j1.setFont(new Font("", 20, 20));
+		j1.setForeground(Color.RED);
+		c.add(j1);
+		jt1.setBounds(50, 350, 240, 40);
+		jt1.setFont(new Font("", 18, 18));
+		js.setViewportView(jt);
+		c.add(jt1);
+		/** 设置按钮2以及文本框2以及标签2 */
+		jb2.setBounds(350, 500, 100, 40);
+		c.add(jb2);
+		jt2.setBounds(50, 500, 240, 40);
+		c.add(jt2);
+		j2.setBounds(50, 510, 300, 100);
+		j2.setFont(new Font("", 20, 20));
+		j2.setForeground(Color.RED);
+		c.add(j2);
+		jt2.setFont(new Font("", 17, 17));
+		/** 设置背景颜色 */
+		c.setBackground(Color.PINK);
+
+	}
+}
