@@ -1,0 +1,55 @@
+package Deng;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
+import java.net.Socket;
+import java.util.Map;
+
+import com.softeem.clound.ToolsAndUI.MyJFrame;
+import com.softeem.clound.ToolsAndUI.Tools;
+
+/***
+ * 上传线程
+ * @author 14252
+ *
+ */
+public class UpServer extends Thread{
+	/***/
+	Socket s;
+	File file;
+	Map<String, File> map;
+	String show;
+	public UpServer(Socket s) {
+		this.s = s;
+	}
+	@Override
+	public void run() {
+		MyJFrame.jb2.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//得到输入的文件路径
+				String content=MyJFrame.jt2.getText();
+				file=new File(content);
+				try {
+					//将文件信息通过对象序列化传过去
+					Tools.transObject(file, s.getOutputStream());
+					//得到服务端响应避免阻塞
+					Tools.getMsg(s.getInputStream());
+					//开始传输文件
+					Tools.transFile(s.getOutputStream(), file);
+					//在界面显示显示上传成功
+					MyJFrame.j2.setText("上传成功");
+					MyJFrame.jt.setText(file.getName()+"上传成功！");
+					// 通过半关闭将输出流关闭，解决服务端阻塞问题
+					s.shutdownOutput();
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				} 
+			}
+		});
+	}
+
+}
